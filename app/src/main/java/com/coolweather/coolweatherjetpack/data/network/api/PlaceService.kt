@@ -16,6 +16,9 @@ interface PlaceService {
     fun getCities(@Path("provinceId") provinceId: Int): Call<MutableList<City>>
 
     @GET("api/china/{provinceId}/{cityId}")
-    fun getCounties(@Path("provinceId") provinceId: Int, @Path("cityId") cityId: Int): Call<MutableList<County>>
+    fun getCounties(
+        @Path("provinceId") provinceId: Int,
+        @Path("cityId") cityId: Int
+    ): Call<MutableList<County>>
 
 }

@@ -16,15 +16,24 @@ import kotlinx.android.synthetic.main.title.*
 
 class WeatherActivity : AppCompatActivity() {
 
-    val viewModel by lazy { ViewModelProviders.of(this, InjectorUtil.getWeatherModelFactory()).get(WeatherViewModel::class.java) }
+    val viewModel by lazy {
+        ViewModelProviders.of(this, InjectorUtil.getWeatherModelFactory())
+            .get(WeatherViewModel::class.java)
+    }
 
-    private val binding by lazy { DataBindingUtil.setContentView<ActivityWeatherBinding>(this, R.layout.activity_weather) }
+    private val binding by lazy {
+        DataBindingUtil.setContentView<ActivityWeatherBinding>(
+            this,
+            R.layout.activity_weather
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (Build.VERSION.SDK_INT >= 21) {
             val decorView = window.decorView
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             window.statusBarColor = Color.TRANSPARENT
         }
         binding.viewModel = viewModel

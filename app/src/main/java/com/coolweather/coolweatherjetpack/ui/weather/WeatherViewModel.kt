@@ -22,7 +22,7 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
     var weatherId = ""
 
     fun getWeather() {
-        launch ({
+        launch({
             weather.value = repository.getWeather(weatherId)
             weatherInitialized.value = true
         }, {
@@ -33,7 +33,7 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
 
     fun refreshWeather() {
         refreshing.value = true
-        launch ({
+        launch({
             weather.value = repository.refreshWeather(weatherId)
             refreshing.value = false
             weatherInitialized.value = true
@@ -60,12 +60,13 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
         })
     }
 
-    private fun launch(block: suspend () -> Unit, error: suspend (Throwable) -> Unit) = viewModelScope.launch {
-        try {
-            block()
-        } catch (e: Throwable) {
-            error(e)
+    private fun launch(block: suspend () -> Unit, error: suspend (Throwable) -> Unit) =
+        viewModelScope.launch {
+            try {
+                block()
+            } catch (e: Throwable) {
+                error(e)
+            }
         }
-    }
 
 }
