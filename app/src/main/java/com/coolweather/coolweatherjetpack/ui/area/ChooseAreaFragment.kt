@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,11 +21,20 @@ import kotlinx.android.synthetic.main.choose_area.*
 
 class ChooseAreaFragment : Fragment() {
 
-    private val viewModel by lazy { ViewModelProviders.of(this, InjectorUtil.getChooseAreaModelFactory()).get(ChooseAreaViewModel::class.java) }
+    private val viewModel by lazy {
+        ViewModelProviders.of(
+            this,
+            InjectorUtil.getChooseAreaModelFactory()
+        ).get(ChooseAreaViewModel::class.java)
+    }
     private var progressDialog: ProgressDialog? = null
     private lateinit var adapter: ArrayAdapter<String>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.choose_area, container, false)
         val binding = DataBindingUtil.bind<ChooseAreaBindingImpl>(view)
         binding?.viewModel = viewModel
@@ -40,7 +49,7 @@ class ChooseAreaFragment : Fragment() {
     }
 
     private fun observe() {
-        viewModel.currentLevel.observe(this, Observer { level ->
+        viewModel.currentLevel.observe(viewLifecycleOwner, Observer { level ->
             when (level) {
                 LEVEL_PROVINCE -> {
                     titleText.text = "中国"
@@ -56,16 +65,16 @@ class ChooseAreaFragment : Fragment() {
                 }
             }
         })
-        viewModel.dataChanged.observe(this, Observer {
+        viewModel.dataChanged.observe(viewLifecycleOwner, Observer {
             adapter.notifyDataSetChanged()
             listView.setSelection(0)
             closeProgressDialog()
         })
-        viewModel.isLoading.observe(this, Observer { isLoading ->
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
             if (isLoading) showProgressDialog()
             else closeProgressDialog()
         })
-        viewModel.areaSelected.observe(this, Observer { selected ->
+        viewModel.areaSelected.observe(viewLifecycleOwner, Observer { selected ->
             if (selected && viewModel.selectedCounty != null) {
                 if (activity is MainActivity) {
                     val intent = Intent(activity, WeatherActivity::class.java)

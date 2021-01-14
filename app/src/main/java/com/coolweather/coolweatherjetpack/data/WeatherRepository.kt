@@ -9,9 +9,9 @@ import kotlinx.coroutines.withContext
 class WeatherRepository private constructor(private val weatherDao: WeatherDao, private val network: CoolWeatherNetwork) {
 
     suspend fun getWeather(weatherId: String): Weather {
-        var weather = weatherDao.getCachedWeatherInfo()
-        if (weather == null) weather = requestWeather(weatherId)
-        return weather
+//        var weather = weatherDao.getCachedWeatherInfo()
+//        if (weather == null) weather = requestWeather(weatherId)
+        return requestWeather(weatherId)
     }
 
     suspend fun refreshWeather(weatherId: String) = requestWeather(weatherId)

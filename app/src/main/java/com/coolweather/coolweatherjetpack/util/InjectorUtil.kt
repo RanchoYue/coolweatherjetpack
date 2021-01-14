@@ -10,9 +10,15 @@ import com.coolweather.coolweatherjetpack.ui.weather.WeatherModelFactory
 
 object InjectorUtil {
 
-    private fun getPlaceRepository() = PlaceRepository.getInstance(CoolWeatherDatabase.getPlaceDao(), CoolWeatherNetwork.getInstance())
+    private fun getPlaceRepository() = PlaceRepository.getInstance(
+        CoolWeatherDatabase.getPlaceDao(),
+        CoolWeatherNetwork.getInstance()
+    )
 
-    private fun getWeatherRepository() = WeatherRepository.getInstance(CoolWeatherDatabase.getWeatherDao(), CoolWeatherNetwork.getInstance())
+    fun getWeatherRepository() = WeatherRepository.getInstance(
+        CoolWeatherDatabase.getWeatherDao(),
+        CoolWeatherNetwork.getInstance()
+    )
 
     fun getChooseAreaModelFactory() = ChooseAreaModelFactory(getPlaceRepository())
 
