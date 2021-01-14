@@ -4,8 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 class Forecast {
     var date: String = ""
+
     @SerializedName("tmp")
     lateinit var temperature: Temperature
+
     @SerializedName("cond")
     lateinit var more: More
 

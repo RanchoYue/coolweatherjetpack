@@ -5,6 +5,6 @@ class AQI {
 
     inner class AQICity {
         var aqi = ""
-        var pm25  = ""
+        var pm25 = ""
     }
 }

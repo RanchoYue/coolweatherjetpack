@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 class Now {
     @SerializedName("tmp")
     var temperature = ""
+
     @SerializedName("cond")
     lateinit var more: More
 

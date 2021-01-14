@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 class Basic {
     @SerializedName("city")
     var cityName = ""
+
     @SerializedName("id")
     var weatherId = ""
     lateinit var update: Update
